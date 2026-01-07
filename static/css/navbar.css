@@ -67,3 +67,7 @@
             background-color: var(--secondary-orange);
             font-size: 0.6rem;
         }
+
+        .custom-font-size {
+            font-size: 1rem;
+        }
