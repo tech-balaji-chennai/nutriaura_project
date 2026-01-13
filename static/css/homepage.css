@@ -1,0 +1,85 @@
+.offcanvas .btn {
+  font-weight: 600;
+  color: #2d5a2d;
+}
+
+.offcanvas ul li a {
+  text-decoration: none;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.offcanvas ul li a:hover {
+  color: var(--primary-green);
+}
+
+.offcanvas .accordion-button {
+  background-color: #e9f5ec;
+  color: var(--light-green);
+  font-weight: 700;
+}
+
+
+
+/* ===============================
+   Arrow Positioning (Left Side)
+   =============================== */
+
+.category-toggle {
+  position: relative;
+  padding-left: 2.50rem !important;
+  padding-right: 1rem !important;
+  font-weight: 600;
+  color: var(--very-light-green);
+}
+
+.subcategory-toggle {
+  position: relative;
+  padding-left: 2.75rem !important;
+  padding-right: 1rem !important;
+  font-weight: 700;
+  color: var(--dark-green);
+}
+
+/* Arrow for CATEGORY TYPE buttons */
+.category-toggle::after {
+  position: absolute;
+  left: 0.75rem;
+  right: auto;
+}
+
+/* Arrow for SUB-CATEGORY buttons */
+.subcategory-toggle::after {
+  position: absolute;
+  left: 2.25rem;
+  right: auto;
+}
+
+/* ===============================
+   Indentation for Hierarchy
+   =============================== */
+
+/* Level 2 (Sub-categories) */
+.subcategory-toggle {
+  padding-left: 4rem !important;
+  font-size: 0.95rem;
+}
+
+/* Level 3 (Products) */
+.product-list {
+  padding-left: 3.75rem;
+}
+
+.product-list li {
+  margin: 0.3rem 0;
+}
+
+.product-list a {
+  text-decoration: none;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.product-list a:hover {
+  color: var(--primary-green);
+}
