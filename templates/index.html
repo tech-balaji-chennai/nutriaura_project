@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{% static 'css/root_body_preset.css' %}">
     <link rel="stylesheet" href="{% static 'css/topbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/breadcrumb.css' %}">
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
@@ -67,6 +68,9 @@
 
     <!-- Main Content -->
     <main style="padding-top: 90px;"> <!-- To stack below the topbar and navbar -->
+        <!-- Breadcrumb Navigation -->
+        {% include "components/breadcrumb.html" %}
+
         <!-- Carousel -->
         {% include "components/carousel.html" %}
 

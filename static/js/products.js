@@ -4,6 +4,8 @@ class ProductCarousel {
     constructor() {
         this.currentIndex = 0;
         this.itemsPerView = this.getItemsPerView();
+        this.selectedCategory = null;
+        this.filteredProducts = [...products];
         this.init();
     }
 
@@ -15,6 +17,9 @@ class ProductCarousel {
     }
 
     init() {
+        this.populateCategoryDropdown();
+        this.attachCategoryEventListeners();
+        this.attachBreadcrumbResetListener();
         this.renderProducts();
         this.attachEventListeners();
         window.addEventListener('resize', () => {
@@ -24,11 +29,103 @@ class ProductCarousel {
         });
     }
 
+    populateCategoryDropdown() {
+        const categoriesDropdown = document.getElementById('categories-dropdown');
+        if (!categoriesDropdown) {
+            console.error('Categories dropdown element not found');
+            return;
+        }
+
+        console.log('Found categories dropdown, populating with categories...');
+
+        // Get unique categories from products
+        const uniqueCategories = [...new Set(products.map(p => p.category))].sort();
+        console.log('Unique categories:', uniqueCategories);
+
+        // Populate dropdown
+        categoriesDropdown.innerHTML = uniqueCategories.map(category => `
+            <li>
+                <a class="dropdown-item category-filter" href="#" data-category="${category}">
+                    ${category}
+                </a>
+            </li>
+        `).join('');
+
+        // Add "All Products" option at the top
+        const allProductsOption = document.createElement('li');
+        allProductsOption.innerHTML = `
+            <a class="dropdown-item category-filter" href="#" data-category="all">
+                All Products
+            </a>
+        `;
+        categoriesDropdown.insertBefore(allProductsOption, categoriesDropdown.firstChild);
+
+        // Add divider after "All Products"
+        const divider = document.createElement('li');
+        divider.innerHTML = '<hr class="dropdown-divider">';
+        categoriesDropdown.insertBefore(divider, categoriesDropdown.children[1]);
+    }
+
+    attachCategoryEventListeners() {
+        document.addEventListener('click', (e) => {
+            const categoryFilter = e.target.closest('.category-filter');
+            if (!categoryFilter) return;
+
+            e.preventDefault();
+            const category = categoryFilter.getAttribute('data-category');
+            this.selectCategory(category);
+        });
+    }
+
+    attachBreadcrumbResetListener() {
+        document.addEventListener('resetCategory', () => {
+            this.selectCategory('all');
+        });
+    }
+
+    selectCategory(category) {
+        this.selectedCategory = category === 'all' ? null : category;
+        this.currentIndex = 0;
+
+        // Filter products based on selected category
+        if (this.selectedCategory) {
+            this.filteredProducts = products.filter(p => p.category === this.selectedCategory);
+        } else {
+            this.filteredProducts = [...products];
+        }
+
+        // Update UI
+        this.toggleBreadcrumb();
+        this.renderProducts();
+    }
+
+    toggleBreadcrumb() {
+        const breadcrumbContainer = document.getElementById('breadcrumb-container');
+        const carousel = document.getElementById('carouselExampleIndicators');
+        const productSection = document.querySelector('section.container.my-5');
+        const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+        const productCount = document.getElementById('product-count');
+
+        if (this.selectedCategory) {
+            // Show breadcrumb, hide carousel
+            breadcrumbContainer.style.display = 'block';
+            if (carousel) carousel.style.display = 'none';
+            if (productSection) productSection.style.display = 'block';
+            breadcrumbCurrent.textContent = this.selectedCategory;
+            productCount.textContent = `${this.filteredProducts.length} products`;
+        } else {
+            // Hide breadcrumb, show carousel
+            breadcrumbContainer.style.display = 'none';
+            if (carousel) carousel.style.display = 'block';
+            if (productSection) productSection.style.display = 'block';
+        }
+    }
+
     renderProducts() {
         const container = document.querySelector('.row.g-4');
         if (!container) return;
 
-        container.innerHTML = products.map(product => `
+        container.innerHTML = this.filteredProducts.map(product => `
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="position-relative">
@@ -83,7 +180,7 @@ class ProductCarousel {
     }
 
     scroll(direction) {
-        const maxIndex = Math.max(0, products.length - this.itemsPerView);
+        const maxIndex = Math.max(0, this.filteredProducts.length - this.itemsPerView);
 
         if (direction === 'next') {
             this.currentIndex = Math.min(this.currentIndex + 1, maxIndex);
@@ -108,7 +205,7 @@ class ProductCarousel {
         const buttons = document.querySelectorAll('.btn-light.position-absolute');
         const prevBtn = Array.from(buttons).find(btn => btn.style.left === '-20px');
         const nextBtn = Array.from(buttons).find(btn => btn.style.right === '-20px');
-        const maxIndex = Math.max(0, products.length - this.itemsPerView);
+        const maxIndex = Math.max(0, this.filteredProducts.length - this.itemsPerView);
 
         if (prevBtn) {
             prevBtn.disabled = this.currentIndex === 0;

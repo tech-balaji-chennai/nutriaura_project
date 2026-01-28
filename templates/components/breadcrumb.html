@@ -1,0 +1,41 @@
+<!-- Breadcrumb Navigation -->
+<nav aria-label="breadcrumb" id="breadcrumb-container" style="display: none;">
+  <div class="container my-3">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+        <a href="#" id="breadcrumb-home" class="text-decoration-none">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="#" id="breadcrumb-categories" class="text-decoration-none">Categories</a>
+      </li>
+      <li class="breadcrumb-item active" id="breadcrumb-current" aria-current="page">
+        <!-- Category name populated by JavaScript -->
+      </li>
+    </ol>
+    <div class="mt-2">
+      <span id="product-count" class="badge bg-secondary">0 products</span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const breadcrumbHome = document.getElementById('breadcrumb-home');
+    const breadcrumbCategories = document.getElementById('breadcrumb-categories');
+
+    breadcrumbHome.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Reset to show all products
+      const event = new CustomEvent('resetCategory');
+      document.dispatchEvent(event);
+    });
+
+    breadcrumbCategories.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Reset to show all products
+      const event = new CustomEvent('resetCategory');
+      document.dispatchEvent(event);
+    });
+  });
+</script>
+

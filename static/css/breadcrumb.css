@@ -1,0 +1,35 @@
+/* Breadcrumb Navigation Styles */
+.breadcrumb {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 1rem 0;
+}
+
+.breadcrumb-item {
+    font-size: 0.95rem;
+}
+
+.breadcrumb-item a {
+    color: #2d5f2e;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #1f4620;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+#breadcrumb-container {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#product-count {
+    font-size: 0.875rem;
+    padding: 0.35rem 0.65rem;
+}
