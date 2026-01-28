@@ -9,6 +9,39 @@
     padding: 1rem 0;
 }
 
+/* Breadcrumb Navigation */
+.product-detail-breadcrumb {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 0;
+}
+
+.product-detail-breadcrumb .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.product-detail-breadcrumb .breadcrumb-item {
+    font-size: 0.95rem;
+}
+
+.product-detail-breadcrumb .breadcrumb-item a {
+    color: #2d5f2e;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.product-detail-breadcrumb .breadcrumb-item a:hover {
+    color: #1f4620;
+    text-decoration: underline;
+}
+
+.product-detail-breadcrumb .breadcrumb-item.active {
+    color: #6c757d;
+    font-weight: 500;
+}
+
 /* Left Side: Product Card */
 .card {
     border-radius: 0.5rem;

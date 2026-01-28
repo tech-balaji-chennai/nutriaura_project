@@ -1,6 +1,25 @@
 <!-- Product Detail View using Alpine.js -->
 <div id="product-detail-container" x-data="productDetailView()" x-cloak>
   
+  <!-- Breadcrumb Navigation -->
+  <template x-if="selectedProduct">
+    <nav aria-label="breadcrumb" class="product-detail-breadcrumb">
+      <div class="container my-3">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a href="#" @click.prevent="clearSelection()" class="text-decoration-none">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <span x-text="selectedProduct.name"></span>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Description
+          </li>
+        </ol>
+      </div>
+    </nav>
+  </template>
+  
   <!-- Product Detail Content (Only shown when a product is selected) -->
   <template x-if="selectedProduct">
     <section class="container my-5">
